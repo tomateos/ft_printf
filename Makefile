@@ -6,11 +6,11 @@
 #    By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/28 11:45:49 by tzhou             #+#    #+#              #
-#    Updated: 2017/05/15 14:58:12 by tzhou            ###   ########.fr        #
+#    Updated: 2017/05/15 17:48:35 by tzhou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = libftprintf.a
 
 WFLAG = -Wall -Werror -Wextra
 CC = gcc
@@ -18,6 +18,8 @@ INC = -I includes
 
 SDIR = src
 ODIR = obj
+
+PSRC = ft_printf.c ft_printf_flag.c
 
 SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
 	  ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c ft_strcat.c \
@@ -32,7 +34,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
 	  ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
 	  ft_lstiter.c ft_lstmap.c ft_itoa_base.c ft_putnchar.c ft_print_memory.c \
 	  ft_isupper.c ft_islower.c ft_memlocate.c ft_strlocate.c ft_strndup.c \
-	  get_next_line.c
+	  get_next_line.c ${PSRC}
 
 OBJ = ${SRC:.c=.o}
 
@@ -48,7 +50,7 @@ $(ODIR)/%.o: $(SDIR)/%.c
 $(NAME): $(OBJS)
 	@ar rc $@ $^
 	@ranlib $@
-	@echo "\033[0;32m[libft.a created]\033[0m"
+	@echo "\033[0;32m[libftprintf.a created]\033[0m"
 
 clean:
 	@/bin/rm -rf $(ODIR)
@@ -56,6 +58,6 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
-	@echo "\033[0;31m[libft.a cleaned]\033[0m"
+	@echo "\033[0;31m[libftprintf.a cleaned]\033[0m"
 
 re: fclean $(NAME)
