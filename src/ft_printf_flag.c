@@ -1,38 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_flag.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/01 19:11:09 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/10 22:28:35 by tzhou            ###   ########.fr       */
+/*   Created: 2017/07/03 19:14:23 by tzhou             #+#    #+#             */
+/*   Updated: 2017/07/10 22:16:31 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft.h"
-# include <stdarg.h>
+#include "ft_printf.h"
 
-typedef struct	s_conv
-{
-	void		*arg;
-	char		type;
-	int			width;
-	int			precision;
-	int			length;
-	char		pad;
-	char		sign;
-	char		*out;
-	int			count;
-}				t_conv;
-
-char			*g_conv;
-char			*g_int;
-char			*g_float;
-char			*g_flag;
-
-int				ft_printf(const char *format, ...);
-
-#endif
+char	*g_conv = "sSpdDioOuUxXcCeEfFgGaAn%";
+char	*g_int = "dDioOuUxX";
+char	*g_float = "eEfFgGaA";
+char	*g_flag = "hljz";
