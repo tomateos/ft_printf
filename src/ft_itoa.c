@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/02 15:05:11 by tzhou             #+#    #+#             */
-/*   Updated: 2016/12/18 22:38:19 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/13 23:41:21 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,60 +16,42 @@
 ** Returns a string that represents the int n.
 */
 
-static int	get_nbr_len(int n, int base, int neg)
+static int	get_nbr_len(intmax_t n, int sign)
 {
 	int len;
 
-	len = 0;
-	if (neg)
+	len = 1;
+	if (sign < 0)
 		len++;
-	while (n >= base || n <= -base)
+	while (n >= 10 || n <= -10)
 	{
 		len++;
-		n = n / base;
+		n = n / 10;
 	}
-	len++;
 	return (len);
 }
 
-static char	get_digit(int n, int base, int neg)
+char		*ft_itoa(intmax_t n)
 {
-	int		digit;
-	char	c;
-
-	if (neg)
-		digit = (n % base) * -1;
-	else
-		digit = n % base;
-	c = digit + 48;
-	return (c);
-}
-
-char		*ft_itoa(int n)
-{
+	int		sign;
 	int		len;
-	int		base;
-	int		neg;
 	char	*output;
 
-	base = 10;
-	neg = 0;
+	sign = 1;
 	if (n < 0)
-		neg = 1;
-	len = get_nbr_len(n, base, neg);
+		sign = -1;
+	len = get_nbr_len(n, sign);
 	output = (char*)malloc(sizeof(char) * (len + 1));
 	if (!output)
 		return (NULL);
 	output[len--] = 0;
-	if (neg)
+	if (n < 0)
 		output[0] = '-';
-	while (n >= base || n <= -base)
+	while (n >= 10 || n <= -10)
 	{
-		output[len--] = get_digit(n, base, neg);
-		n = n / base;
+		output[len--] = sign * (n % 10) + '0';
+		n = n / 10;
 	}
-	output[len] = get_digit(n, base, neg);
-	if (len && base == 10)
-		output[0] = '-';
+	output[len--] = sign * n + '0';
 	return (output);
 }

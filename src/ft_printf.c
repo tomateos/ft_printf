@@ -6,49 +6,71 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/02 21:09:56 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/10 22:30:25 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 00:05:24 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		store_env(char *parse, t_conv *env, void *arg, char type)
+void		clear_env(t_print *env)
 {
-	ft_putstr(parse);
-	env->arg = arg;
-	env->type = type;
-	return (0);
+	free(env->out);
+	free(env);
 }
 
-int		parse_format(char *parse, va_list ap)
+static int	choose_conv(char *parse, t_print *env)
 {
-	t_conv	*env;
-	int		i;
-	void	*arg;
-
-	if (!(env = (t_conv*)malloc(sizeof(t_conv))))
+	env->type == '%' ? print_percent(parse, env) : 0;
+	ft_strchr("cC", env->type) ? print_char(parse, env) : 0;
+	ft_strchr("sS", env->type) ? print_string(parse, env) : 0;
+	ft_strchr("idD", env->type) ? print_int(parse, env) : 0;
+	ft_strchr("oO", env->type) ? print_oct(parse, env) : 0;
+	ft_strchr("uU", env->type) ? print_uint(parse, env) : 0;
+	ft_strchr("pxX", env->type) ? print_hex(parse, env) : 0;
+	if (ft_strchr("eEfFgGaAn", env->type))
 		exit(1);
-	ft_bzero((void*)env, sizeof(t_conv));
-	i = 0;
-	while (!ft_strchr(g_conv, parse[i]))
-		i++;
-	if (parse[i] != '%')
-		arg = va_arg(ap, void*);
-	else
-		arg = NULL;
-	return (store_env(parse, env, arg, parse[i]));
+	return (env->count);
 }
 
-int		get_format(const char **format, va_list ap)
+static int	parse_format(char *parse, va_list ap, char type)
 {
-	int			i;
-	char		*tmp;
-	char		*parse;
-	int			count;
+	t_print	*env;
+	int		i;
+	int		count;
+
+	if (!(env = (t_print*)malloc(sizeof(t_print))))
+		exit(1);
+	ft_bzero((void*)env, sizeof(t_print));
+	env->type = type;
+	if (env->type != '%')
+		env->arg = va_arg(ap, void*);
+	i = 0;
+	while (!ft_strchr(PRINT_CONV, parse[i]))
+	{
+		if (ft_strchr(".0123456789", *parse))
+			parse = get_width_prec(parse, env);
+		else if (ft_strchr("hljz", *parse))
+			parse = get_length(parse, env);
+		else
+			i++;
+	}
+	if (!env->pad)
+		env->pad = ' ';
+	count = choose_conv(parse, env);
+	clear_env(env);
+	return (count);
+}
+
+static int	get_format(const char **format, va_list ap)
+{
+	int		i;
+	char	*tmp;
+	char	*parse;
+	int		count;
 
 	i = 1;
 	tmp = (char*)*format;
-	while (!ft_strchr(g_conv, tmp[i]))
+	while (!ft_strchr(PRINT_CONV, tmp[i]))
 	{
 		if (!tmp[i])
 			exit(1);
@@ -56,14 +78,14 @@ int		get_format(const char **format, va_list ap)
 	}
 	if (!(parse = ft_strndup(&tmp[1], i + 1)))
 		exit(1);
+	count = parse_format(parse, ap, tmp[i]);
 	while (i-- > 0)
 		++*format;
-	count = parse_format(parse, ap);
 	free(parse);
 	return (count);
 }
 
-int		ft_printf(const char *format, ...)
+int			ft_printf(const char *format, ...)
 {
 	int		out;
 	va_list	ap;

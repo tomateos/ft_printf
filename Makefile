@@ -6,7 +6,7 @@
 #    By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/28 11:45:49 by tzhou             #+#    #+#              #
-#    Updated: 2017/07/03 19:27:26 by tzhou            ###   ########.fr        #
+#    Updated: 2017/07/13 23:53:15 by tzhou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ INC = -I includes
 SDIR = src
 ODIR = obj
 
-PSRC = ft_printf.c ft_printf_flag.c
+PSRC = ft_printf.c ft_printf_flag.c ft_printf_chars.c ft_printf_nbr.c \
+	   ft_printf_output.c
 
 SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
 	  ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c ft_strcat.c \

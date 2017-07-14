@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 13:29:11 by tzhou             #+#    #+#             */
-/*   Updated: 2017/01/24 12:45:52 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/13 22:57:12 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
-char				*ft_itoa(int n);
+char				*ft_itoa(intmax_t n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
@@ -84,7 +84,7 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
-char				*ft_itoa_base(int n, int base);
+char				*ft_itoa_base(uintmax_t n, unsigned int base, int upper);
 void				ft_putnchar(char c, int n);
 void				ft_print_memory(const void *addr, size_t size);
 int					ft_isupper(int c);

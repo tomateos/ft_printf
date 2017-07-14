@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 20:41:11 by tzhou             #+#    #+#             */
-/*   Updated: 2016/12/18 23:03:20 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/13 22:56:03 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,53 @@
 
 /*
 ** Returns a string that represents int n in base 10 as int n in base base.
-** Base must be between 2 and 36. If base is not 10, treat n as unsigned.
+** Base should be between 2 and 16.
 */
 
-static int	get_nbr_len(int value, int base, int neg)
+static int	get_nbr_len(uintmax_t value, unsigned int base)
 {
 	int len;
 
-	len = 0;
-	if (neg && base == 10)
-		len++;
-	while (value >= base || value <= -base)
+	len = 1;
+	while (value >= base)
 	{
 		len++;
 		value = value / base;
 	}
-	len++;
 	return (len);
 }
 
-static char	get_digit(int value, int base, int neg)
+static char	get_digit(uintmax_t value, unsigned int base, int upper)
 {
 	int		digit;
-	int		sign;
 	char	c;
 
-	sign = 1;
-	if (neg)
-		sign = -1;
-	digit = (value % base) * sign;
+	digit = (value % base);
 	if (digit >= 0 && digit < 10)
-		c = digit + 48;
+		c = digit + '0';
 	else
-		c = digit + 55;
+	{
+		if (upper)
+			c = digit + 'A' - 10;
+		else
+			c = digit + 'a' - 10;
+	}
 	return (c);
 }
 
-char		*ft_itoa_base(int value, int base)
+char		*ft_itoa_base(uintmax_t value, unsigned int base, int upper)
 {
-	int		neg;
 	int		len;
 	char	*nbr;
 
-	neg = 0;
-	if (value < 0)
-		neg = 1;
-	len = get_nbr_len(value, base, neg);
+	len = get_nbr_len(value, base);
 	nbr = (char*)malloc(sizeof(char) * (len + 1));
 	nbr[len--] = 0;
-	while ((value >= base && !neg) || (value <= -base && neg))
+	while (value >= base)
 	{
-		nbr[len--] = get_digit(value, base, neg);
+		nbr[len--] = get_digit(value, base, upper);
 		value = value / base;
 	}
-	nbr[len] = get_digit(value, base, neg);
-	if (len && base == 10)
-		nbr[0] = '-';
+	nbr[len] = get_digit(value, base, upper);
 	return (nbr);
 }
