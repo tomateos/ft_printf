@@ -6,13 +6,13 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 19:14:23 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/13 23:04:02 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 00:22:21 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*get_length(char *parse, t_print *env)
+int	get_length(char *parse, t_print *env, int ind)
 {
 	char	check;
 
@@ -21,45 +21,45 @@ char	*get_length(char *parse, t_print *env)
 	check = 1;
 	if (ft_strchr("SDOUC", env->type))
 		env->len++;
-	while (ft_strchr("hljz", *parse) && *parse)
+	while (ft_strchr("hljz", parse[ind]) && parse[ind])
 	{
-		if (*parse == 'h')
+		if (parse[ind] == 'h')
 			(env->len > 0 || env->len < -1) ? (check = 0) : (env->len--);
-		if (*parse == 'l')
+		if (parse[ind] == 'l')
 			(env->len < 0 || env->len > 1) ? (check = 0) : (env->len++);
-		if (*parse == 'j')
+		if (parse[ind] == 'j')
 			(env->len != 0) ? (check = 0) : (env->len += 3);
-		if (*parse == 'z')
+		if (parse[ind] == 'z')
 			(env->len != 0) ? (check = 0) : (env->len -= 3);
 		if (!check)
 			exit(1);
-		parse++;
+		ind++;
 	}
-	return (parse);
+	return (ind);
 }
 
-char	*get_width_prec(char *parse, t_print *env)
+int	get_width_prec(char *parse, t_print *env, int ind)
 {
 	if (env->width || env->precision || env->len)
 		exit(1);
-	if (*parse == '0')
+	if (parse[ind] == '0')
 	{
 		env->pad = '0';
-		parse++;
+		ind++;
 	}
-	while (ft_strchr("0123456789", *parse) && *parse)
+	while (ft_strchr("0123456789", parse[ind]) && parse[ind])
 	{
-		env->width = env->width * 10 + *parse - '0';
-		parse++;
+		env->width = env->width * 10 + parse[ind] - '0';
+		ind++;
 	}
-	if (*parse == '.')
+	if (parse[ind] == '.')
 	{
-		parse++;
-		while (ft_strchr("0123456789", *parse) && *parse)
+		ind++;
+		while (ft_strchr("0123456789", parse[ind]) && parse[ind])
 		{
-			env->precision = env->precision * 10 + *parse - '0';
-			parse++;
+			env->precision = env->precision * 10 + parse[ind] - '0';
+			ind++;
 		}
 	}
-	return (parse);
+	return (ind);
 }

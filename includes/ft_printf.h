@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 19:11:09 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/13 23:11:17 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 00:19:47 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int				ft_printf(const char *format, ...);
 /*
 ** Flag management
 */
-char			*get_length(char *parse, t_print *env);
-char			*get_width_prec(char *parse, t_print *env);
+int				get_length(char *parse, t_print *env, int ind);
+int				get_width_prec(char *parse, t_print *env, int ind);
 
 /*
 ** Conversion management (non-numbers)
