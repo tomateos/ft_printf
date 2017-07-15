@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/02 21:09:56 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/14 18:39:22 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 19:37:55 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,10 @@ static int	get_format(const char **format, va_list ap)
 int			ft_printf(const char *format, ...)
 {
 	int		out;
-	va_list	ap;
+//	va_list	ap;
 
-	va_start(ap, format);
+	printf("%s\n", format);
+/*	va_start(ap, format);
 	out = 0;
 	while (*format)
 	{
@@ -100,6 +101,7 @@ int			ft_printf(const char *format, ...)
 			out += (int)write(1, format, 1);
 		format++;
 	}
-	va_end(ap);
-	return (out);
+	va_end(ap);*/
+	//return (out);
+	return 0;
 }
