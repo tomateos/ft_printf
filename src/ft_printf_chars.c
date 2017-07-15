@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 17:24:54 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/14 18:40:39 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 20:11:03 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	print_percent(t_print *env)
 	env->out = (char*)malloc(sizeof(char) * (2));
 	env->out[0] = '%';
 	env->out[1] = '\0';
+	ft_putstr(env->out);
 	env->count = 1;
 	return (0);
 }
