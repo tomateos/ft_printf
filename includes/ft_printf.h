@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 19:11:09 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/14 00:19:47 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 18:36:58 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,27 @@ int				ft_printf(const char *format, ...);
 */
 int				get_length(char *parse, t_print *env, int ind);
 int				get_width_prec(char *parse, t_print *env, int ind);
+int				get_signs(char *parse, t_print *env, int ind);
 
 /*
 ** Conversion management (non-numbers)
 */
 
-int				print_percent(char *parse, t_print *env);
-int				print_char(char *parse, t_print *env);
-int				print_string(char *parse, t_print *env);
+int				print_percent(t_print *env);
+int				print_char(t_print *env);
+int				print_string(t_print *env);
 
 /*
 ** Conversion management (numbers)
 */
 
-int				print_int(char *parse, t_print *env);
-int				print_uint(char *parse, t_print *env);
-int				print_oct(char *parse, t_print *env);
-int				print_hex(char *parse, t_print *env);
+int				print_int(t_print *env);
+int				print_uint(t_print *env, int base);
 
 /*
 ** Output management
 */
 
-int				display_int(char *parse, t_print *env);
+int				display_int(t_print *env);
 
 #endif

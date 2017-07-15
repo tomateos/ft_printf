@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/02 21:09:56 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/14 00:19:31 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 18:39:22 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void		clear_env(t_print *env)
 	free(env);
 }
 
-static int	choose_conv(char *parse, t_print *env)
+static int	choose_conv(t_print *env)
 {
-	env->type == '%' ? print_percent(parse, env) : 0;
-	ft_strchr("cC", env->type) ? print_char(parse, env) : 0;
-	ft_strchr("sS", env->type) ? print_string(parse, env) : 0;
-	ft_strchr("idD", env->type) ? print_int(parse, env) : 0;
-	ft_strchr("oO", env->type) ? print_oct(parse, env) : 0;
-	ft_strchr("uU", env->type) ? print_uint(parse, env) : 0;
-	ft_strchr("pxX", env->type) ? print_hex(parse, env) : 0;
+	env->type == '%' ? print_percent(env) : 0;
+	ft_strchr("cC", env->type) ? print_char(env) : 0;
+	ft_strchr("sS", env->type) ? print_string(env) : 0;
+	ft_strchr("idD", env->type) ? print_int(env) : 0;
+	ft_strchr("oO", env->type) ? print_uint(env, 10) : 0;
+	ft_strchr("uU", env->type) ? print_uint(env, 8) : 0;
+	ft_strchr("pxX", env->type) ? print_uint(env, 16) : 0;
 	if (ft_strchr("eEfFgGaAn", env->type))
 		exit(1);
 	return (env->count);
@@ -47,6 +47,8 @@ static int	parse_format(char *parse, va_list ap, char type)
 	i = 0;
 	while (!ft_strchr(PRINT_CONV, parse[i]))
 	{
+		if (ft_strchr("+- #", parse[i]))
+			i = get_signs(parse, env, i);
 		if (ft_strchr(".0123456789", parse[i]))
 			i = get_width_prec(parse, env, i);
 		else if (ft_strchr("hljz", parse[i]))
@@ -54,9 +56,7 @@ static int	parse_format(char *parse, va_list ap, char type)
 		else
 			i++;
 	}
-	if (!env->pad)
-		env->pad = ' ';
-	count = choose_conv(parse, env);
+	count = choose_conv(env);
 	clear_env(env);
 	return (count);
 }

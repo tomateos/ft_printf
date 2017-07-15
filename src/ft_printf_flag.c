@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 19:14:23 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/14 00:22:21 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 18:20:12 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,17 @@ int	get_width_prec(char *parse, t_print *env, int ind)
 		}
 	}
 	return (ind);
+}
+
+int	get_signs(char *parse, t_print *env, int ind)
+{
+	if (parse[ind] == '+')
+		env->sign = '+';
+	if (parse[ind] == '-')
+		env->left = 1;
+	if (parse[ind] == '#')
+		env->sign = '#';
+	if (parse[ind] == ' ')
+		env->sign = ' ';
+	return (ind + 1);
 }
