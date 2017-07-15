@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 17:50:34 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/14 18:41:07 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 20:25:56 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	print_int(t_print *env)
 	return (display_int(env));
 }
 
-int	print_uint(t_print *env, int base)
+int	print_uint(t_print *env, unsigned int base)
 {
 	int	upper;
 

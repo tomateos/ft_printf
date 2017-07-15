@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 19:11:09 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/14 18:36:58 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 20:26:10 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				print_string(t_print *env);
 */
 
 int				print_int(t_print *env);
-int				print_uint(t_print *env, int base);
+int				print_uint(t_print *env, unsigned int base);
 
 /*
 ** Output management
