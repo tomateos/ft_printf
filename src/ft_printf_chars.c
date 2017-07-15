@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 17:24:54 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/14 20:11:03 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 21:11:09 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,15 @@ int	print_char(t_print *env)
 
 int	print_string(t_print *env)
 {
-	ft_putstr((char*)env->arg);
-	env->count = ft_strlen((char*)env->arg);
+	if (env->arg)
+	{
+		ft_putstr((char*)env->arg);
+		env->count = ft_strlen((char*)env->arg);
+	}
+	else
+	{
+		ft_putstr("(null)");
+		env->count = 0;
+	}
 	return (0);
 }
