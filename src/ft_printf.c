@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/02 21:09:56 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/14 19:40:35 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/14 21:02:23 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	choose_conv(t_print *env)
 	ft_strchr("cC", env->type) ? print_char(env) : 0;
 	ft_strchr("sS", env->type) ? print_string(env) : 0;
 	ft_strchr("idD", env->type) ? print_int(env) : 0;
-	ft_strchr("oO", env->type) ? print_uint(env, 10) : 0;
-	ft_strchr("uU", env->type) ? print_uint(env, 8) : 0;
+	ft_strchr("oO", env->type) ? print_uint(env, 8) : 0;
+	ft_strchr("uU", env->type) ? print_uint(env, 10) : 0;
 	ft_strchr("pxX", env->type) ? print_uint(env, 16) : 0;
 	if (ft_strchr("eEfFgGaAn", env->type))
 		exit(1);
