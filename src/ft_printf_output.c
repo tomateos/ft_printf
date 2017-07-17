@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 22:57:58 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/16 21:06:16 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/16 21:15:40 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,19 @@ int	display_str(t_print *env)
 	{
 		while (i < env->count)
 			ft_putchar(env->out[i++]);
-		while (env->count < env->width)
-		{
-			ft_putchar(' ');
-			env->count++;
-		}
+		if (i < env->width)
+			ft_putnchar(' ', env->width - i);
+		env->count = i;
 	}
 	else
 	{
 		if (!env->width)
-			env->width = env->precision;
-		if (env->width > env->precision)
-			ft_putnchar(' ', env->width - env->precision);
-		while (i < env->precision)
+			env->width = env->count;
+		if (env->width > env->count)
+			ft_putnchar(' ', env->width - env->count);
+		while (i < env->count)
 			ft_putchar(env->out[i++]);
+		env->count = env->width;
 	}
 	return (0);
 }
