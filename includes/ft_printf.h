@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 19:11:09 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/16 19:10:39 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/16 21:23:50 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int				print_uint(t_print *env, unsigned int base);
 */
 
 int				display_int(t_print *env);
+int				display_str(t_print *env);
 
 /*
 ** TO DO

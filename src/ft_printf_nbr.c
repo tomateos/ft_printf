@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 17:50:34 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/16 19:07:57 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/16 22:39:52 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	fix_flags(t_print *env)
 	}
 	if (ft_strchr("+- ", env->sign))
 	{
-		if (!(line = ft_strjoin(&env->sign, &env->out[ind])))
+		if (!(line = ft_strdup(&env->out[ind])))
 			exit(1);
 		free(env->out);
 		env->out = line;
@@ -49,6 +49,7 @@ int			print_int(t_print *env)
 	if (env->len == 3)
 		env->out = ft_itoa((intmax_t)env->arg);
 	fix_flags(env);
+	env->count = ft_strlen(env->out);
 	return (display_int(env));
 }
 
@@ -95,5 +96,6 @@ int			print_uint(t_print *env, unsigned int base)
 	if (env->len == 3)
 		env->out = ft_itoa_base((uintmax_t)env->arg, base, upper);
 	env->sign == '#' || env->type == 'p' ? fix_uflags(env) : 0;
+	env->count = ft_strlen(env->out);
 	return (display_int(env));
 }

@@ -6,21 +6,28 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 19:14:23 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/16 17:01:01 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 00:11:21 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	get_length(char *parse, t_print *env, int ind)
+static int	safe_len(t_print *env)
+{
+	if (!env->len)
+		return (1);
+	if (env->len == 1 && ft_strchr("SDOUC", env->type))
+		return (1);
+	return (0);
+}
+
+int			get_length(char *parse, t_print *env, int ind)
 {
 	char	check;
 
-	if (env->len)
+	if (!safe_len(env))
 		exit(1);
 	check = 1;
-	if (ft_strchr("SDOUC", env->type))
-		env->len++;
 	while (ft_strchr("hljz", parse[ind]) && parse[ind])
 	{
 		if (parse[ind] == 'h')
@@ -35,12 +42,12 @@ int	get_length(char *parse, t_print *env, int ind)
 			exit(1);
 		ind++;
 	}
-	return (ind);
+	return (ind - 1);
 }
 
-int	get_width_prec(char *parse, t_print *env, int ind)
+int			get_width_prec(char *parse, t_print *env, int ind)
 {
-	if (env->width || env->precision || env->len)
+	if (env->width || env->precision || !safe_len(env))
 		exit(1);
 	if (parse[ind] == '0')
 	{
@@ -61,10 +68,10 @@ int	get_width_prec(char *parse, t_print *env, int ind)
 			ind++;
 		}
 	}
-	return (ind);
+	return (ind - 1);
 }
 
-int	get_signs(char *parse, t_print *env, int ind)
+int			get_signs(char *parse, t_print *env, int ind)
 {
 	if (parse[ind] == '+')
 		env->sign = '+';
@@ -74,5 +81,5 @@ int	get_signs(char *parse, t_print *env, int ind)
 		env->sign = '#';
 	if (parse[ind] == ' ')
 		env->sign = ' ';
-	return (ind + 1);
+	return (ind);
 }

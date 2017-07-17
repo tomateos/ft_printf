@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/02 21:09:56 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/16 17:00:13 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/16 22:01:47 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	parse_format(char *parse, va_list ap, char type)
 		exit(1);
 	ft_bzero((void*)env, sizeof(t_print));
 	env->type = type;
+	ft_strchr("SDOUC", type) ? env->len = 1 : 0;
 	if (env->type != '%')
 		env->arg = va_arg(ap, void*);
 	i = 0;
@@ -53,8 +54,7 @@ static int	parse_format(char *parse, va_list ap, char type)
 			i = get_width_prec(parse, env, i);
 		else if (ft_strchr("hljz", parse[i]))
 			i = get_length(parse, env, i);
-		else
-			i++;
+		i++;
 	}
 	count = choose_conv(env);
 	clear_env(env);
