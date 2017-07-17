@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/02 21:09:56 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/14 21:02:23 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/16 17:00:13 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	parse_format(char *parse, va_list ap, char type)
 	{
 		if (ft_strchr("+- #", parse[i]))
 			i = get_signs(parse, env, i);
-		if (ft_strchr(".0123456789", parse[i]))
+		else if (ft_strchr(".0123456789", parse[i]))
 			i = get_width_prec(parse, env, i);
 		else if (ft_strchr("hljz", parse[i]))
 			i = get_length(parse, env, i);
