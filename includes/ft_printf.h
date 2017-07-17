@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 19:11:09 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/16 19:02:33 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/16 19:10:39 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ int				display_int(t_print *env);
 ** test_hhhllljz : pass
 ** test_i : pass
 ** test_C : pass
+** test_mix : pass
 ** test_mix2 : pass
 ** test_o : pass
+** test_p : pass
 ** test_sharp : pass
 ** test_space : pass
 ** test_u : pass
@@ -83,8 +85,6 @@ int				display_int(t_print *env);
 ** test_S : fail
 ** test_ld : fail
 ** test_minus : fail
-** test_mix : fail
-** test_p : fail
 ** test_plus : fail
 ** test_precision : fail
 */
