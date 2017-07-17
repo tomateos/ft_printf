@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 22:57:58 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/17 01:42:26 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 01:48:36 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			display_int(t_print *env)
 	if (env->left)
 		i = pad_spaces(env);
 	ft_strchr("+- ", env->sign) ? i += 1 : 0;
-	env->count += i;
+	//env->count += i;
 	return (0);
 }
 
@@ -72,7 +72,7 @@ int			display_str(t_print *env)
 	int		i;
 
 	if (env->precision && env->precision < env->count)
-		env->count = env->precision;
+		ft_strchr("sS", env->type) ? env->count = env->precision : 1;
 	env->width < env->count ? (env->width = env->count) : 0;
 	i = 0;
 	if (env->left)
