@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 17:24:54 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/16 21:07:01 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/16 21:17:00 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	print_percent(t_print *env)
 		exit(1);
 	env->out[0] = '%';
 	env->out[1] = '\0';
-	ft_putstr(env->out);
 	env->count = 1;
 	return (display_str(env));
 }
@@ -29,7 +28,6 @@ int	print_char(t_print *env)
 		exit(1);
 	env->out[0] = (char)env->arg;
 	env->out[1] = '\0';
-	ft_putstr(env->out);
 	env->count = 1;
 	return (display_str(env));
 }
