@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 17:50:34 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/16 18:28:01 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/16 19:07:57 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			print_uint(t_print *env, unsigned int base)
 	int	upper;
 
 	upper = (env->type == 'X') ? 1 : 0;
+	env->type == 'p' ? (env->len = 3) : 0;
 	if (env->len == -3)
 		env->out = ft_itoa_base((size_t)env->arg, base, upper);
 	if (env->len == -2)
