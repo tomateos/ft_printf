@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 22:57:58 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/17 01:28:04 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 01:42:26 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ static int	pad_spaces(t_print *env)
 {
 	int	i;
 	int	len;
+
+	i = 0;
+	if (i == 0)
+		return (0);
 
 	i = -1;
 	len = env->width;
@@ -38,12 +42,12 @@ static int	pad_zeroes(t_print *env)
 
 	i = 0;
 	ft_strchr("+- ", env->sign) ? write(1, &env->sign, 1) : 0;
-	if (env->count < env->precision)
+/*	if (env->count < env->precision)
 		i += env->precision - env->count;
 	if (env->pad == '0' && !env->left && !env->precision)
 		i += env->width - env->count;
 	ft_putnchar('0', i);
-	ft_putstr(env->out);
+*/	ft_putstr(env->out);
 	i += ft_strlen(env->out);
 	return (i);
 }
