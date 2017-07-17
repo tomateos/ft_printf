@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 22:57:58 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/17 13:10:03 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 16:21:13 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int	pad_zeroes(t_print *env, int zeroes)
 	int		size;
 	int		ind;
 
+	zeroes < 0 ? (zeroes = 0) : 0;
 	size = ft_strlen(env->out) + zeroes;
 	ft_strchr("+- ", env->sign) ? size += 1 : 0;
 	if (!(line = (char*)malloc(sizeof(char) * (size + 1))))
@@ -64,17 +65,12 @@ int			display_int(t_print *env)
 	int		size;
 
 	size = ft_strlen(env->out);
-	ft_strchr("+- ", env->sign) ? size += 1 : 0;
-	zeroes = 0;
-	env->width < env->precision ? (env->width = env->precision) : 0;
-	env->width < size ? (env->width = size) : 0;
-	if (!env->left && env->pad == '0')
-		zeroes = env->width - size;
+	if (env->precision > env->width && env->precision > size)
+		zeroes = env->precision - size;
+	else if (!env->left && env->width > size && env->pad == '0')
+		zeroes = env->width - size - (ft_strchr("+- ", env->sign) > 0);
 	else
-	{
-		ft_strchr("+- ", env->sign) ? size -= 1 : 0;
-		size < env->precision ? zeroes = env->precision - size : 0;
-	}
+		zeroes = env->precision - size;
 	pad_zeroes(env, zeroes);
 	size = env->width - env->count;
 	if (size > 0)
