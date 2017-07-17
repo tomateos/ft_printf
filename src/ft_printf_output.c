@@ -6,90 +6,101 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 22:57:58 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/17 01:48:36 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 13:10:03 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	pad_spaces(t_print *env)
+static int	pad_spaces(t_print *env, int size)
 {
-	int	i;
-	int	len;
+	char	*line;
+	char	*space;
 
-	i = 0;
-	if (i == 0)
-		return (0);
-
-	i = -1;
-	len = env->width;
-	if (!env->left && env->precision > env->count)
-		len -= env->precision;
-	else if (!env->left && env->count > env->precision)
-		len -= env->count;
+	if (!(space = (char*)malloc(sizeof(char) * (size + 1))))
+		exit(1);
+	space[size] = '\0';
+	ft_memset(space, ' ', size);
+	if (env->left)
+	{
+		if (!(line = ft_strjoin(env->out, space)))
+			exit(1);
+	}
 	else
-		len -= env->count;
-	if (!env->left)
-		ft_strchr("-+ ", env->sign) ? len -= 1 : 0;
-	while (++i < len)
-		ft_putchar(' ');
-	return (i);
+	{
+		if (!(line = ft_strjoin(space, env->out)))
+			exit(1);
+	}
+	free(space);
+	free(env->out);
+	env->out = line;
+	return (0);
 }
 
-static int	pad_zeroes(t_print *env)
+static int	pad_zeroes(t_print *env, int zeroes)
 {
-	int	i;
+	char	*line;
+	int		size;
+	int		ind;
 
-	i = 0;
-	ft_strchr("+- ", env->sign) ? write(1, &env->sign, 1) : 0;
-/*	if (env->count < env->precision)
-		i += env->precision - env->count;
-	if (env->pad == '0' && !env->left && !env->precision)
-		i += env->width - env->count;
-	ft_putnchar('0', i);
-*/	ft_putstr(env->out);
-	i += ft_strlen(env->out);
-	return (i);
+	size = ft_strlen(env->out) + zeroes;
+	ft_strchr("+- ", env->sign) ? size += 1 : 0;
+	if (!(line = (char*)malloc(sizeof(char) * (size + 1))))
+		exit(1);
+	ft_bzero(line, size + 1);
+	ind = 0;
+	ft_strchr("+- ", env->sign) ? (line[ind++] = env->sign) : 0;
+	ft_memset(&line[ind], '0', zeroes);
+	ft_strcat(line, env->out);
+	free(env->out);
+	env->out = line;
+	env->count = ft_strlen(env->out);
+	return (0);
 }
 
 int			display_int(t_print *env)
 {
-	int	i;
+	int		zeroes;
+	int		size;
 
-	i = 0;
-	if (!env->left && env->pad != '0')
-		i = pad_spaces(env);
-	env->count = pad_zeroes(env);
-	if (env->left)
-		i = pad_spaces(env);
-	ft_strchr("+- ", env->sign) ? i += 1 : 0;
-	//env->count += i;
+	size = ft_strlen(env->out);
+	ft_strchr("+- ", env->sign) ? size += 1 : 0;
+	zeroes = 0;
+	env->width < env->precision ? (env->width = env->precision) : 0;
+	env->width < size ? (env->width = size) : 0;
+	if (!env->left && env->pad == '0')
+		zeroes = env->width - size;
+	else
+	{
+		ft_strchr("+- ", env->sign) ? size -= 1 : 0;
+		size < env->precision ? zeroes = env->precision - size : 0;
+	}
+	pad_zeroes(env, zeroes);
+	size = env->width - env->count;
+	if (size > 0)
+		pad_spaces(env, size);
+	ft_putstr(env->out);
+	env->count = ft_strlen(env->out);
 	return (0);
 }
 
 int			display_str(t_print *env)
 {
-	int		i;
+	char	*line;
+	int		size;
 
 	if (env->precision && env->precision < env->count)
-		ft_strchr("sS", env->type) ? env->count = env->precision : 1;
-	env->width < env->count ? (env->width = env->count) : 0;
-	i = 0;
-	if (env->left)
 	{
-		while (env->out[i] && i < env->count)
-			ft_putchar(env->out[i++]);
-		if (i < env->width)
-			ft_putnchar(' ', env->width - i);
+		if (!(line = ft_strndup(env->out, env->precision)))
+			exit(1);
+		free(env->out);
+		env->out = line;
+		env->count = ft_strlen(env->out);
 	}
-	else
-	{
-		if (env->width > env->count)
-			ft_putnchar(' ', env->width - env->count);
-		while (env->out[i] && i < env->count)
-			ft_putchar(env->out[i++]);
-		env->count = env->width;
-	}
-	env->count = env->width;
+	size = env->width - env->count;
+	if (size > 0)
+		pad_spaces(env, size);
+	ft_putstr(env->out);
+	env->count = ft_strlen(env->out);
 	return (0);
 }
