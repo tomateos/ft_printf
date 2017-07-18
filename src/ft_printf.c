@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/02 21:09:56 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/16 22:01:47 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 17:08:13 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void		clear_env(t_print *env)
 {
-	free(env->out);
+	if (env->out)
+		free(env->out);
 	free(env);
 }
 

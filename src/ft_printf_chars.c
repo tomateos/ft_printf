@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 17:24:54 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/16 23:54:11 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 17:19:01 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,20 @@
 
 int	print_percent(t_print *env)
 {
-	if (!(env->out = (char*)malloc(sizeof(char) * (2))))
+	if (!(env->out = (char*)malloc(sizeof(char) * (1))))
 		exit(1);
-	env->out[0] = '%';
-	env->out[1] = '\0';
-	env->count = ft_strlen(env->out);
-	return (display_str(env));
+	env->out[0] = '\0';
+	env->count = 1;
+	return (display_char(env, '%'));
 }
 
 int	print_char(t_print *env)
 {
-	if (!(env->out = (char*)malloc(sizeof(char) * (2))))
+	if (!(env->out = (char*)malloc(sizeof(char) * (1))))
 		exit(1);
-	env->out[0] = (char)env->arg;
-	env->out[1] = '\0';
-	env->count = ft_strlen(env->out);
-	return (display_str(env));
+	env->out[0] =  '\0';
+	env->count = 1;
+	return (display_char(env, (char)env->arg));
 }
 
 int	print_string(t_print *env)
