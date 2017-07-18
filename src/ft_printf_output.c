@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 22:57:58 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/17 18:28:17 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 18:30:20 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			display_int(t_print *env)
 		zeroes = env->width - size - sign;
 	else
 		zeroes = env->precision - size;
-	d_zeroes(env, zeroes, sign);
+	pad_zeroes(env, zeroes, sign);
 	size = env->width - env->count;
 	if (size > 0)
 		pad_spaces(env, size);
