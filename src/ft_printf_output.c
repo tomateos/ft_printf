@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 22:57:58 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/17 18:30:20 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 18:35:48 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,13 @@ int			display_int(t_print *env)
 
 	sign = (env->sign && ft_strchr("+- ", env->sign)) ? 1 : 0;
 	size = ft_strlen(env->out);
-	if (env->precision > env->width)
-		zeroes = env->precision - size;
-	else if (!env->left && env->width > size && env->pad == '0')
-		zeroes = env->width - size - sign;
+	if (!env->left && env->width > size && env->pad == '0')
+	{
+		if (env->precision)
+			zeroes = env->precision - size - sign;
+		else
+			zeroes = env->width - size - sign;
+	}
 	else
 		zeroes = env->precision - size;
 	pad_zeroes(env, zeroes, sign);
