@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 19:11:09 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/17 17:18:52 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 17:26:50 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int				display_str(t_print *env);
 
 /*
 ** TO DO
-** test_c : fail
+** test_c : pass
 ** test_d : pass
 ** test_hhhllljz : pass
 ** test_i : pass

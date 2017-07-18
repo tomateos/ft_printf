@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 22:57:58 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/17 17:18:24 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 18:28:17 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,20 @@ static int	pad_spaces(t_print *env, int size)
 	return (0);
 }
 
-static int	pad_zeroes(t_print *env, int zeroes)
+static int	pad_zeroes(t_print *env, int zeroes, int sign)
 {
 	char	*line;
 	int		size;
 	int		ind;
 
-	zeroes < 0 ? (zeroes = 0) : 0;
-	size = ft_strlen(env->out) + zeroes;
-	ft_strchr("+- ", env->sign) ? size += 1 : 0;
+	if (zeroes < 0)
+		zeroes = 0;
+	size = ft_strlen(env->out) + zeroes + sign;
 	if (!(line = (char*)malloc(sizeof(char) * (size + 1))))
 		exit(1);
 	ft_bzero(line, size + 1);
 	ind = 0;
-	ft_strchr("+- ", env->sign) ? (line[ind++] = env->sign) : 0;
+	sign ? (line[ind++] = env->sign) : 0;
 	ft_memset(&line[ind], '0', zeroes);
 	ft_strcat(line, env->out);
 	free(env->out);
@@ -63,15 +63,17 @@ int			display_int(t_print *env)
 {
 	int		zeroes;
 	int		size;
+	int		sign;
 
+	sign = (env->sign && ft_strchr("+- ", env->sign)) ? 1 : 0;
 	size = ft_strlen(env->out);
 	if (env->precision > env->width)
 		zeroes = env->precision - size;
 	else if (!env->left && env->width > size && env->pad == '0')
-		zeroes = env->width - size - (ft_strchr("+- ", env->sign) > 0);
+		zeroes = env->width - size - sign;
 	else
 		zeroes = env->precision - size;
-	pad_zeroes(env, zeroes);
+	d_zeroes(env, zeroes, sign);
 	size = env->width - env->count;
 	if (size > 0)
 		pad_spaces(env, size);
@@ -94,8 +96,8 @@ int			display_char(t_print *env, char c)
 		ft_putchar(c);
 	env->count = ft_strlen(env->out) + 1;
 	return (0);
-
 }
+
 int			display_str(t_print *env)
 {
 	char	*line;

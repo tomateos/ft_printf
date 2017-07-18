@@ -6,7 +6,7 @@
 /*   By: tzhou <tzhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 17:24:54 by tzhou             #+#    #+#             */
-/*   Updated: 2017/07/17 17:19:01 by tzhou            ###   ########.fr       */
+/*   Updated: 2017/07/17 17:43:09 by tzhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	print_char(t_print *env)
 {
 	if (!(env->out = (char*)malloc(sizeof(char) * (1))))
 		exit(1);
-	env->out[0] =  '\0';
+	env->out[0] = '\0';
 	env->count = 1;
 	return (display_char(env, (char)env->arg));
 }
